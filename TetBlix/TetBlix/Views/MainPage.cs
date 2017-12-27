@@ -15,7 +15,7 @@ namespace TetBlix
                 case Device.iOS:
                     itemsPage = new NavigationPage(new ItemsPage())
                     {
-                        Title = "Browse"
+                        Title = "Latest Series"
                     };
 
                     aboutPage = new NavigationPage(new AboutPage())
@@ -28,7 +28,7 @@ namespace TetBlix
                 default:
                     itemsPage = new ItemsPage()
                     {
-                        Title = "Browse"
+                        Title = "Latest Series"
                     };
 
                     aboutPage = new AboutPage()

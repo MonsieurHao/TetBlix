@@ -14,7 +14,7 @@ namespace TetBlix
 
         public ItemsViewModel()
         {
-            Title = "Browse";
+            Title = "TETBLIX";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 

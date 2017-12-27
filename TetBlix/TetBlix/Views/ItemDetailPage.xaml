@@ -7,4 +7,8 @@
 		<Label Text="{Binding Item.Text}" FontSize="Medium"/>
         <Label Text="{Binding Item.Description}" FontSize="Small"/>
     </StackLayout>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete"
+                     Command="{Binding DeleteShow}"/>
+    </ContentPage.ToolbarItems>
 </ContentPage>
