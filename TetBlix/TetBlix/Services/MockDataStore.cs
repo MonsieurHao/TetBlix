@@ -25,11 +25,7 @@ namespace TetBlix
             var mockItems = new List<Item>
             {
                 new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description = "This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description = "This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Third item", Description = "This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Description = "This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fifth item", Description = "This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sixth item", Description = "This is an item description." },
+               
             };
 
             foreach (var item in mockItems)
@@ -65,9 +61,9 @@ namespace TetBlix
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(string id)
+        public async Task<bool> DeleteItemAsync(Item item)
         {
-            var _item = realm.All<Item>().Where((Item arg) => arg.Id == id).FirstOrDefault();
+            var _item = realm.All<Item>().Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
 
             realm.Write(() =>
             {

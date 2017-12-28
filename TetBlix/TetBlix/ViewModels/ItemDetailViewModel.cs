@@ -30,42 +30,39 @@ namespace TetBlix
                 OnPropertyChanged("Description");
             }
         }
-        public ICommand DeleteShowCommand { get; private set; }
-        private string _seriesId;
-
-        public void SeriesDetailsViewModel(string seriesId)
+        private string id;
+        private string Id
         {
-            _seriesId = seriesId;
-            Realm context = Realm.GetInstance();
-            var series = context.Find<Item>(seriesId);
+            get { return id; }
+            set
+            {
+                id = value;
+                OnPropertyChanged("Id");
+            }
+        }
 
-            Text = series.Text;
-            Description = series.Description;
+        public ICommand DeleteShowCommand { get; private set; }
+
+
+        public Item Item { get; set; }
+        public ItemDetailViewModel(Item item)
+        {
+            Title = item?.Text;
+            Item = item;
 
             DeleteShowCommand = new Command(DeleteShow);
-            
 
         }
 
         void DeleteShow()
         {
             Realm context = Realm.GetInstance();
-            var series = context.Find<Item>(_seriesId);
+            var series = Item;
 
-            context.Write(() =>
-            {
-                context.Remove(series);
-            });
+            DataStore.DeleteItemAsync(series);
+            OnPropertyChanged("series");
             App.Current.MainPage.Navigation.PopAsync();
         }
 
-
-
-        public Item Item { get; set; }
-        public ItemDetailViewModel(Item item = null)
-        {
-            Title = item?.Text;
-            Item = item;
-        }
     }
 }

@@ -9,6 +9,6 @@
     </StackLayout>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Delete"
-                     Command="{Binding DeleteShow}"/>
+                     Command="{Binding DeleteShowCommand}"/>
     </ContentPage.ToolbarItems>
 </ContentPage>
