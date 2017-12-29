@@ -63,11 +63,10 @@ namespace TetBlix
 
         public async Task<bool> DeleteItemAsync(Item item)
         {
-            var _item = realm.All<Item>().Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
 
             realm.Write(() =>
             {
-                realm.Remove(_item);
+                realm.Remove(item);
             });
 
             return await Task.FromResult(true);
@@ -78,7 +77,7 @@ namespace TetBlix
             return await Task.FromResult(realm.All<Item>().FirstOrDefault(s => s.Id == id));
         }
 
-        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = true)
         {
             return await Task.FromResult(realm.All<Item>());
         }

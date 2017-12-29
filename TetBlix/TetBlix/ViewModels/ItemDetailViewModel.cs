@@ -30,16 +30,6 @@ namespace TetBlix
                 OnPropertyChanged("Description");
             }
         }
-        private string id;
-        private string Id
-        {
-            get { return id; }
-            set
-            {
-                id = value;
-                OnPropertyChanged("Id");
-            }
-        }
 
         public ICommand DeleteShowCommand { get; private set; }
 
@@ -54,14 +44,12 @@ namespace TetBlix
 
         }
 
-        void DeleteShow()
+        async void DeleteShow()
         {
-            Realm context = Realm.GetInstance();
             var series = Item;
 
-            DataStore.DeleteItemAsync(series);
-            OnPropertyChanged("series");
-            App.Current.MainPage.Navigation.PopAsync();
+            await DataStore.DeleteItemAsync(series);
+            await App.Current.MainPage.Navigation.PopAsync();
         }
 
     }

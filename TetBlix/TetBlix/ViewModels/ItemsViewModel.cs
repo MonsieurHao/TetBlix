@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -7,24 +8,33 @@ using Xamarin.Forms;
 
 namespace TetBlix
 {
+
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> Items { get; set; }
+        public System.Collections.ObjectModel.ObservableCollection<Item> _items;
+
+        public ObservableCollection<Item> Items
+        {
+            get { return _items; }
+            set { _items = value; OnPropertyChanged("Items"); }
+        }
         public Command LoadItemsCommand { get; set; }
 
         public ItemsViewModel()
         {
             Title = "TETBLIX";
             Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            LoadItemsCommand = new Command(execute: async () => await ExecuteLoadItemsCommand());
 
             MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
             {
                 var _item = item as Item;
-                Items.Add(_item);
                 await DataStore.AddItemAsync(_item);
+                Items.Add(_item);
+                System.Diagnostics.Debug.WriteLine(" : {0} ", Items.Count);
             });
         }
+        
 
         async Task ExecuteLoadItemsCommand()
         {
@@ -36,7 +46,7 @@ namespace TetBlix
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await DataStore.GetItemsAsync();
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -50,6 +60,8 @@ namespace TetBlix
             {
                 IsBusy = false;
             }
+
+            System.Diagnostics.Debug.WriteLine("ExecuteLoadItemsCommand : {0} " ,Items.Count);
         }
     }
 }

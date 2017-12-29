@@ -44,7 +44,7 @@ namespace TetBlix
        
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        protected void OnPropertyChanged(string propertyName)
         {
             var changed = PropertyChanged;
             if (changed == null)

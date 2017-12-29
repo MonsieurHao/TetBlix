@@ -2,7 +2,7 @@
 using System;
 
 namespace TetBlix
-{
+{   
     public class Item : RealmObject
     {   
         [PrimaryKey]
