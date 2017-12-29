@@ -20,6 +20,7 @@ namespace TetBlix
         }
         public Command LoadItemsCommand { get; set; }
 
+
         public ItemsViewModel()
         {
             Title = "TETBLIX";
@@ -29,9 +30,8 @@ namespace TetBlix
             MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
             {
                 var _item = item as Item;
-                await DataStore.AddItemAsync(_item);
+                await DataStore.AddItemAsync(_item, true);
                 Items.Add(_item);
-                System.Diagnostics.Debug.WriteLine(" : {0} ", Items.Count);
             });
         }
         
@@ -60,8 +60,6 @@ namespace TetBlix
             {
                 IsBusy = false;
             }
-
-            System.Diagnostics.Debug.WriteLine("ExecuteLoadItemsCommand : {0} " ,Items.Count);
         }
     }
 }

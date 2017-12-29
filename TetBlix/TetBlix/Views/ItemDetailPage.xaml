@@ -8,6 +8,8 @@
         <Label Text="{Binding Item.Description}" FontSize="Small"/>
     </StackLayout>
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Update"
+                     Command="{Binding UpdateShowCommand}"/>
         <ToolbarItem Text="Delete"
                      Command="{Binding DeleteShowCommand}"/>
     </ContentPage.ToolbarItems>

@@ -33,6 +33,8 @@ namespace TetBlix
 
         public ICommand DeleteShowCommand { get; private set; }
 
+        public ICommand UpdateShowCommand { get; private set; }
+
 
         public Item Item { get; set; }
         public ItemDetailViewModel(Item item)
@@ -40,6 +42,7 @@ namespace TetBlix
             Title = item?.Text;
             Item = item;
 
+            UpdateShowCommand = new Command(UpdateShow);
             DeleteShowCommand = new Command(DeleteShow);
 
         }
@@ -50,6 +53,13 @@ namespace TetBlix
 
             await DataStore.DeleteItemAsync(series);
             await App.Current.MainPage.Navigation.PopAsync();
+        }
+
+        async void UpdateShow()
+        {
+            var series = Item;
+            await App.Current.MainPage.Navigation.PushAsync(new NewItemPage(series));
+
         }
 
     }

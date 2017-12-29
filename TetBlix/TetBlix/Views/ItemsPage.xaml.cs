@@ -9,6 +9,7 @@ namespace TetBlix
     public partial class ItemsPage : ContentPage
     {
         ItemsViewModel viewModel;
+        private Item series;
 
         public ItemsPage()
         {
@@ -33,7 +34,8 @@ namespace TetBlix
 
         async void AddItem_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new NewItemPage());
+            series = new Item();
+            await Navigation.PushAsync(new NewItemPage(series));
             
         }
 
@@ -48,7 +50,6 @@ namespace TetBlix
                 viewModel.LoadItemsCommand.Execute(null);
                 ToolbarItems.Clear();
                 InitializeComponent();
-                System.Diagnostics.Debug.WriteLine("OnAppearing : {0} ", viewModel.Items.Count);
             }
             
         }
