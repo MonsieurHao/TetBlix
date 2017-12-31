@@ -7,7 +7,7 @@ using Realms;
 [assembly: Xamarin.Forms.Dependency(typeof(TetBlix.MockDataStore))]
 namespace TetBlix
 {
-    
+
     public class MockDataStore : IDataStore<Item>
     {
         List<Item> items;
@@ -16,8 +16,8 @@ namespace TetBlix
         public MockDataStore()
         {
             items = new List<Item>();
-           
-            if(realm.All<Item>().Count() > 0)
+
+            if (realm.All<Item>().Count() > 0)
             {
                 return;
             }
@@ -25,8 +25,9 @@ namespace TetBlix
             var mockItems = new List<Item>
             {
                 new Item { Id = Guid.NewGuid().ToString(), Text = "Welcome",
-                    Description = "Welcome to TetBlix, an application that allow you to remember all the series you want to see with your comments" },
-               
+                    Description = "Welcome to TetBlix, an application that allow you to remember all the series you want to see with your comments. " +
+                    "Use the Add button to add a show that you would like to recommend and write some phrase to precise the synopsis." },
+
             };
 
             foreach (var item in mockItems)
@@ -41,7 +42,7 @@ namespace TetBlix
         public async Task<bool> AddItemAsync(Item item, bool update)
         {
             realm.Write(() =>
-            {                
+            {
                 realm.Add(item, true);
             });
 
@@ -53,10 +54,10 @@ namespace TetBlix
             var _item = realm.All<Item>().Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
 
             realm.Write(() =>
-                {
-                    realm.Remove(_item);
-                    realm.Add(item, update);
-                });
+            {
+                realm.Remove(_item);
+                realm.Add(item, update);
+            });
 
             return await Task.FromResult(true);
         }

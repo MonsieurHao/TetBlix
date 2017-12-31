@@ -34,7 +34,11 @@
                                 <Label Text="{Binding Text}" 
                        LineBreakMode="NoWrap" 
                        Style="{DynamicResource ListItemTextStyle}" 
-                       FontSize="16" />
+                       FontSize="19" />
+                                <Label Text="{Binding Description}" 
+                       LineBreakMode="NoWrap" 
+                       Style="{DynamicResource ListItemTextStyle}" 
+                       FontSize="12" />
                             </StackLayout>
 						</ViewCell>
 					</DataTemplate>
